@@ -1,0 +1,21 @@
+Subject: Following Up: Website for ${business_name}
+
+Dear ${contact_name},
+
+I recently reached out regarding creating a website for ${business_name}. I understand you're busy running your business, so I wanted to follow up.
+
+Having a website is increasingly important for ${business_category} businesses in ${location}. Your competitors are likely already online, and a professional website would help you:
+
+1. Appear in Google searches when potential customers look for ${business_category} services
+2. Build credibility and trust with new customers
+3. ${custom_benefit}
+4. Provide information and services to customers even outside business hours
+
+I specialize in creating affordable, effective websites for businesses like yours. I'd be happy to show you some examples of my work for other ${business_category} businesses.
+
+If you're interested, please book a quick 15-minute call at your convenience: [Your Calendly Link]
+
+Best regards,
+
+[Your Name]
+[Your Contact Information]

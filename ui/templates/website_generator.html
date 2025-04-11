@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Generator - Business Finder Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0;
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+        }
+        
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: .5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .nav-link.active {
+            color: #2470dc;
+        }
+        
+        .nav-link:hover {
+            color: #0d6efd;
+        }
+        
+        .navbar-brand {
+            padding-top: .75rem;
+            padding-bottom: .75rem;
+            font-size: 1rem;
+            background-color: rgba(0, 0, 0, .25);
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+        }
+        
+        .navbar .navbar-toggler {
+            top: .25rem;
+            right: 1rem;
+        }
+        
+        .main-content {
+            margin-left: 240px;
+            padding: 20px;
+        }
+        
+        @media (max-width: 767.98px) {
+            .sidebar {
+                top: 5rem;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+        
+        .template-card {
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .template-card.selected {
+            border: 2px solid #0d6efd;
+        }
+        
+        .feature-checkbox {
+            margin-right: 10px;
+        }
+        
+        .preview-container {
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 15px;
+            min-height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/">Business Finder</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-nav">
+            <div class="nav-item text-nowrap">
+                <a class="nav-link px-3" href="#">Sign out</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">
+                                <i class="bi bi-house-door"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/leads">
+                                <i class="bi bi-people"></i> Leads
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/campaigns">
+                                <i class="bi bi-megaphone"></i> Campaigns
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/finder">
+                                <i class="bi bi-search"></i> Business Finder
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/website-generator">
+                                <i class="bi bi-globe"></i> Website Generator
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/templates">
+                                <i class="bi bi-envelope"></i> Email Templates
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/analytics">
+                                <i class="bi bi-graph-up"></i> Analytics
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/settings">
+                                <i class="bi bi-gear"></i> Settings
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Website Generator</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" id="saveTemplateBtn">
+                                <i class="bi bi-save"></i> Save Template
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" id="previewWebsiteBtn">
+                                <i class="bi bi-eye"></i> Preview
+                            </button>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-primary" id="generateWebsiteBtn">
+                            <i class="bi bi-globe"></i> Generate Website
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">Business Information</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="businessInfoForm">
+                                    <div class="mb-3">
+                                        <label for="businessSelect" class="form-label">Select Business</label>
+                                        <select class="form-select" id="businessSelect">
+                                            <option value="">Select a business...</option>
+                                            <option value="1">Delicious Corner Cafe</option>
+                                            <option value="2">Quick Fix Plumbing</option>
+                                            <option value="3">Elite Hair Salon</option>
+                                            <option value="4">Bright Smile Dental</option>
+                                            <option value="5">Reliable Electricians</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="businessName" class="form-label">Business Name</label>
+                                        <input type="text" class="form-control" id="businessName" placeholder="Enter business name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="businessCategory" class="form-label">Category</label>
+                                        <select class="form-select" id="businessCategory">
+                                            <option value="restaurant">Restaurant</option>
+                                            <option value="plumber">Plumber</option>
+                                            <option value="electrician">Electrician</option>
+                                            <option value="hairdresser">Hairdresser</option>
+                                            <option value="dentist">Dentist</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="businessDescription" class="form-label">Description</label>
+                                        <textarea class="form-control" id="businessDescription" rows="3" placeholder="Enter business description"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="businessAddress" class="form-label">Address</label>
+                                        <input type="text" class="form-control" id="businessAddress" placeholder="Enter business address">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="businessPhone" class="form-label">Phone</label>
+                                        <input type="tel" class="form-control" id="businessPhone" placeholder="Enter phone number">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="businessEmail" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="businessEmail" placeholder="Enter email address">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-5">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">Website Options</h5>
+                            </div>
+                            <div class="card-body">
+                                <h6>Select Template</h6>
+                                <div class="row mb-4">
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card template-card" data-template="modern">
+                                            <img src="https://via.placeholder.com/150x100?text=Modern" class="card-img-top" alt="Modern Template">
+                                            <div class="card-body p-2">
+                                                <p class="card-text text-center mb-0">Modern</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card template-card" data-template="classic">
+                                            <img src="https://via.placeholder.com/150x100?text=Classic" class="card-img-top" alt="Classic Template">
+                                            <div class="card-body p-2">
+                                                <p class="card-text text-center mb-0">Classic</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card template-card" data-template="minimal">
+                                            <img src="https://via.placeholder.com/150x100?text=Minimal" class="card-img-top" alt="Minimal Template">
+                                            <div class="card-body p-2">
+                                                <p class="card-text text-center mb-0">Minimal</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h6>Color Scheme</h6>
+                                <div class="row mb-4">
+                                    <div class="col-md-3 mb-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="colorScheme" id="colorBlue" value="blue" checked>
+                                            <label class="form-check-label" for="colorBlue">
+                                                Blue
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="colorScheme" id="colorGreen" value="green">
+                                            <label class="form-check-label" for="colorGreen">
+                                                Green
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="colorScheme" id="colorRed" value="red">
+                                            <label class="form-check-label" for="colorRed">
+                                                Red
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="colorScheme" id="colorPurple" value="purple">
+                                            <label class="form-check-label" for="colorPurple">
+                                                Purple
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h6>Optional Features</h6>
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input feature-checkbox" type="checkbox" id="featureBooking" checked>
+                                            <label class="form-check-label" for="featureBooking">
+                                                Booking System
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input feature-checkbox" type="checkbox" id="featureMenu">
+                                            <label class="form-check-label" for="featureMenu">
+                                                Menu Display
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input feature-checkbox" type="checkbox" id="featureGallery" checked>
+                                            <label class="form-check-label" for="featureGallery">
+                                                Photo Gallery
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input feature-checkbox" type="checkbox" id="featureTestimonials" checked>
+                                            <label class="form-check-label" for="featureTestimonials">
+                                                Testimonials
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input feature-checkbox" type="checkbox" id="featureContactForm" checked>
+                                            <label class="form-check-label" for="featureContactForm">
+                                                Contact Form
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input feature-checkbox" type="checkbox" id="featureSocialMedia">
+                                            <label class="form-check-label" for="featureSocialMedia">
+                                                Social Media Integration
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h6>Calendly Integration</h6>
+                                <div class="mb-3">
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="enableCalendly">
+                                        <label class="form-check-label" for="enableCalendly">
+                                            Enable Calendly Integration
+                                        </label>
+                                    </div>
+                                    <div id="calendlyOptions" style="display: none;">
+                                        <input type="text" class="form-control mb-2" id="calendlyLink" placeholder="Enter your Calendly link">
+                                        <select class="form-select" id="calendlyType">
+                                            <option value="popup">Popup</option>
+                                            <option value="inline">Inline</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">Preview</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="preview-container">
+                                    <div class="text-center py-5">
+                                        <i class="bi bi-globe" style="font-size: 48px;"></i>
+                                        <h3 id="previewBusinessName">Your Business Name</h3>
+                                        <p class="text-muted" id="previewBusinessCategory">Business Category</p>
+                                        <hr>
+                                        <p id="previewBusinessDescription">Your business description will appear here.</p>
+                                        <div class="mt-4">
+                                            <p><i class="bi bi-geo-alt"></i> <span id="previewBusinessAddress">Business Address</span></p>
+                                            <p><i class="bi bi-telephone"></i> <span id="previewBusinessPhone">Phone Number</span></p>
+                                            <p><i class="bi bi-envelope"></i> <span id="previewBusinessEmail">Email Address</span></p>
+                                        </div>
+                                        <div class="mt-4" id="previewFeatures">
+                                            <span class="badge bg-primary me-1">Booking System</span>
+                                            <span class="badge bg-primary me-1">Photo Gallery</span>
+                                            <span class="badge bg-primary me-1">Testimonials</span>
+                                            <span class="badge bg-primary">Contact Form</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <button class="btn btn-primary w-100" id="fullPreviewBtn">
+                                        <i class="bi bi-arrows-fullscreen"></i> Full Preview
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Generated Websites</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Business Name</th>
+                                                <th>Template</th>
+                                                <th>Features</th>
+                                                <th>Generated Date</th>
+                                                <th>Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Delicious Corner Cafe</td>
+                                                <td>Modern</td>
+                                                <td>
+                                                    <span class="badge bg-primary me-1">Booking</span>
+                                                    <span class="badge bg-primary me-1">Menu</span>
+                                                </td>
+                                                <td>2025-04-09</td>
+                                                <td><span class="badge bg-success">Live</span></td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                                                            <i class="bi bi-eye"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-sm btn-outline-primary">
+                                                            <i class="bi bi-pencil"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-sm btn-outline-danger">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Elite Hair Salon</td>
+                                                <td>Classic</td>
+                                                <td>
+                                                    <span class="badge bg-primary me-1">Booking</span>
+                                                    <span class="badge bg-primary me-1">Gallery</span>
+                                                </td>
+                                                <td>2025-04-08</td>
+                                                <td><span class="badge bg-success">Live</span></td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                                                            <i class="bi bi-eye"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-sm btn-outline-primary">
+                                                            <i class="bi bi-pencil"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-sm btn-outline-danger">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Full Preview Modal -->
+    <div class="modal fade" id="fullPreviewModal" tabindex="-1" aria-labelledby="fullPreviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="fullPreviewModalLabel">Website Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="previewFrame" style="width: 100%; height: 600px; border: none;"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="generateFromPreviewBtn">Generate Website</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Template selection
+            const templateCards = document.querySelectorAll('.template-card');
+            templateCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    templateCards.forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    updatePreview();
+                });
+            });
+            
+            // Select the first template by default
+            templateCards[0].classList.add('selected');
+            
+            // Calendly integration toggle
+            const enableCalendly = document.getElementById('enableCalendly');
+            const calendlyOptions = document.getElementById('calendlyOptions');
+            
+            enableCalendly.addEventListener('change', function() {
+                calendlyOptions.style.display = this.checked ? 'block' : 'none';
+                updatePreview();
+            });
+            
+            // Feature checkboxes
+            const featureCheckboxes = document.querySelectorAll('.feature-checkbox');
+            featureCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updatePreview);
+            });
+            
+            // Business select dropdown
+            const businessSelect = document.getElementById('businessSelect');
+            businessSelect.addEventListener('change', function() {
+                if (this.value) {
+                    // In a real implementation, this would fetch business data from the server
+                    // For now, we'll use some sample data
+                    const businessData = {
+                        '1': {
+                            name: 'Delicious Corner Cafe',
+                            category: 'restaurant',
+                            description: 'A cozy cafe serving delicious breakfast and lunch options with a focus on locally sourced ingredients.',
+                            address: '123 Main St, London, UK',
+                            phone: '+44 20 1234 5678',
+                            email: 'info@deliciouscorner.com'
+                        },
+                        '2': {
+                            name: 'Quick Fix Plumbing',
+                            category: 'plumber',
+                            description: 'Professional plumbing services for residential and commercial properties. Available 24/7 for emergencies.',
+                            address: '456 Service Rd, Manchester, UK',
+                            phone: '+44 161 987 6543',
+                            email: 'service@quickfixplumbing.co.uk'
+                        },
+                        '3': {
+                            name: 'Elite Hair Salon',
+                            category: 'hairdresser',
+                            description: 'Premium hair salon offering cutting-edge styles, coloring, and treatments in a luxurious setting.',
+                            address: '789 Beauty Ave, Birmingham, UK',
+                            phone: '+44 121 555 7890',
+                            email: 'appointments@elitehair.co.uk'
+                        }
+                    };
+                    
+                    const business = businessData[this.value];
+                    if (business) {
+                        document.getElementById('businessName').value = business.name;
+                        document.getElementById('businessCategory').value = business.category;
+                        document.getElementById('businessDescription').value = business.description;
+                        document.getElementById('businessAddress').value = business.address;
+                        document.getElementById('businessPhone').value = business.phone;
+                        document.getElementById('businessEmail').value = business.email;
+                        
+                        updatePreview();
+                    }
+                }
+            });
+            
+            // Business info form inputs
+            const businessInfoInputs = document.querySelectorAll('#businessInfoForm input, #businessInfoForm textarea, #businessInfoForm select');
+            businessInfoInputs.forEach(input => {
+                input.addEventListener('input', updatePreview);
+            });
+            
+            // Color scheme radios
+            const colorSchemeRadios = document.querySelectorAll('input[name="colorScheme"]');
+            colorSchemeRadios.forEach(radio => {
+                radio.addEventListener('change', updatePreview);
+            });
+            
+            // Full preview button
+            const fullPreviewBtn = document.getElementById('fullPreviewBtn');
+            const fullPreviewModal = new bootstrap.Modal(document.getElementById('fullPreviewModal'));
+            
+            fullPreviewBtn.addEventListener('click', function() {
+                // In a real implementation, this would generate a preview HTML
+                // For now, we'll just show a placeholder
+                const previewFrame = document.getElementById('previewFrame');
+                previewFrame.srcdoc = generatePreviewHTML();
+                fullPreviewModal.show();
+            });
+            
+            // Generate website button
+            const generateWebsiteBtn = document.getElementById('generateWebsiteBtn');
+            generateWebsiteBtn.addEventListener('click', function() {
+                const businessName = document.getElementById('businessName').value;
+                if (!businessName) {
+                    alert('Please enter a business name');
+                    return;
+                }
+                
+                const selectedTemplate = document.querySelector('.template-card.selected');
+                if (!selectedTemplate) {
+                    alert('Please select a template');
+                    return;
+                }
+                
+                // Collect all website options
+                const websiteData = {
+                    business: {
+                        name: businessName,
+                        category: document.getElementById('businessCategory').value,
+                        description: document.getElementById('businessDescription').value,
+                        address: document.getElementById('businessAddress').value,
+                        phone: document.getElementById('businessPhone').value,
+                        email: document.getElementById('businessEmail').value
+                    },
+                    template: selectedTemplate.dataset.template,
+                    colorScheme: document.querySelector('input[name="colorScheme"]:checked').value,
+                    features: {
+                        booking: document.getElementById('featureBooking').checked,
+                        menu: document.getElementById('featureMenu').checked,
+                        gallery: document.getElementById('featureGallery').checked,
+                        testimonials: document.getElementById('featureTestimonials').checked,
+                        contactForm: document.getElementById('featureContactForm').checked,
+                        socialMedia: document.getElementById('featureSocialMedia').checked
+                    },
+                    calendly: {
+                        enabled: document.getElementById('enableCalendly').checked,
+                        link: document.getElementById('calendlyLink').value,
+                        type: document.getElementById('calendlyType').value
+                    }
+                };
+                
+                // In a real implementation, this would send the data to the server
+                console.log('Generating website with data:', websiteData);
+                alert('Website generation started for ' + businessName + '. This may take a few minutes.');
+                
+                // Simulate API call
+                fetch('/api/generate-website', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(websiteData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Website generated successfully!');
+                        // In a real implementation, this would redirect to the new website
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred during website generation');
+                });
+            });
+            
+            // Initial preview update
+            updatePreview();
+            
+            // Function to update the preview
+            function updatePreview() {
+                const businessName = document.getElementById('businessName').value || 'Your Business Name';
+                const businessCategory = document.getElementById('businessCategory').value;
+                const businessDescription = document.getElementById('businessDescription').value || 'Your business description will appear here.';
+                const businessAddress = document.getElementById('businessAddress').value || 'Business Address';
+                const businessPhone = document.getElementById('businessPhone').value || 'Phone Number';
+                const businessEmail = document.getElementById('businessEmail').value || 'Email Address';
+                
+                // Update preview elements
+                document.getElementById('previewBusinessName').textContent = businessName;
+                document.getElementById('previewBusinessCategory').textContent = businessCategory;
+                document.getElementById('previewBusinessDescription').textContent = businessDescription;
+                document.getElementById('previewBusinessAddress').textContent = businessAddress;
+                document.getElementById('previewBusinessPhone').textContent = businessPhone;
+                document.getElementById('previewBusinessEmail').textContent = businessEmail;
+                
+                // Update feature badges
+                const previewFeatures = document.getElementById('previewFeatures');
+                previewFeatures.innerHTML = '';
+                
+                if (document.getElementById('featureBooking').checked) {
+                    previewFeatures.innerHTML += '<span class="badge bg-primary me-1">Booking System</span>';
+                }
+                if (document.getElementById('featureMenu').checked) {
+                    previewFeatures.innerHTML += '<span class="badge bg-primary me-1">Menu Display</span>';
+                }
+                if (document.getElementById('featureGallery').checked) {
+                    previewFeatures.innerHTML += '<span class="badge bg-primary me-1">Photo Gallery</span>';
+                }
+                if (document.getElementById('featureTestimonials').checked) {
+                    previewFeatures.innerHTML += '<span class="badge bg-primary me-1">Testimonials</span>';
+                }
+                if (document.getElementById('featureContactForm').checked) {
+                    previewFeatures.innerHTML += '<span class="badge bg-primary me-1">Contact Form</span>';
+                }
+                if (document.getElementById('featureSocialMedia').checked) {
+                    previewFeatures.innerHTML += '<span class="badge bg-primary">Social Media</span>';
+                }
+                if (document.getElementById('enableCalendly').checked) {
+                    previewFeatures.innerHTML += '<span class="badge bg-primary">Calendly</span>';
+                }
+            }
+            
+            // Function to generate preview HTML
+            function generatePreviewHTML() {
+                const businessName = document.getElementById('businessName').value || 'Your Business Name';
+                const businessCategory = document.getElementById('businessCategory').value;
+                const businessDescription = document.getElementById('businessDescription').value || 'Your business description will appear here.';
+                const businessAddress = document.getElementById('businessAddress').value || 'Business Address';
+                const businessPhone = document.getElementById('businessPhone').value || 'Phone Number';
+                const businessEmail = document.getElementById('businessEmail').value || 'Email Address';
+                
+                const selectedTemplate = document.querySelector('.template-card.selected').dataset.template;
+                const colorScheme = document.querySelector('input[name="colorScheme"]:checked').value;
+                
+                // Generate features HTML
+                let featuresHTML = '';
+                if (document.getElementById('featureBooking').checked) {
+                    featuresHTML += `
+                        <section class="py-5 bg-light">
+                            <div class="container">
+                                <h2 class="text-center mb-4">Book an Appointment</h2>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-8">
+                                        <form>
+                                            <div class="mb-3">
+                                                <label for="name" class="form-label">Your Name</label>
+                                                <input type="text" class="form-control" id="name" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="email" class="form-label">Email Address</label>
+                                                <input type="email" class="form-control" id="email" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="phone" class="form-label">Phone Number</label>
+                                                <input type="tel" class="form-control" id="phone">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="date" class="form-label">Preferred Date</label>
+                                                <input type="date" class="form-control" id="date" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="time" class="form-label">Preferred Time</label>
+                                                <input type="time" class="form-control" id="time" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="message" class="form-label">Additional Information</label>
+                                                <textarea class="form-control" id="message" rows="3"></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Book Now</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    `;
+                }
+                
+                if (document.getElementById('featureMenu').checked) {
+                    featuresHTML += `
+                        <section class="py-5">
+                            <div class="container">
+                                <h2 class="text-center mb-4">Our Menu</h2>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Appetizers</h5>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        Garlic Bread
+                                                        <span>$5.99</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        Mozzarella Sticks
+                                                        <span>$7.99</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        Bruschetta
+                                                        <span>$6.99</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Main Courses</h5>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        Spaghetti Bolognese
+                                                        <span>$12.99</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        Chicken Parmesan
+                                                        <span>$14.99</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        Grilled Salmon
+                                                        <span>$16.99</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    `;
+                }
+                
+                if (document.getElementById('featureGallery').checked) {
+                    featuresHTML += `
+                        <section class="py-5 bg-light">
+                            <div class="container">
+                                <h2 class="text-center mb-4">Photo Gallery</h2>
+                                <div class="row">
+                                    <div class="col-md-4 mb-4">
+                                        <img src="https://via.placeholder.com/300x200?text=Photo+1" class="img-fluid rounded" alt="Gallery Image 1">
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <img src="https://via.placeholder.com/300x200?text=Photo+2" class="img-fluid rounded" alt="Gallery Image 2">
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <img src="https://via.placeholder.com/300x200?text=Photo+3" class="img-fluid rounded" alt="Gallery Image 3">
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <img src="https://via.placeholder.com/300x200?text=Photo+4" class="img-fluid rounded" alt="Gallery Image 4">
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <img src="https://via.placeholder.com/300x200?text=Photo+5" class="img-fluid rounded" alt="Gallery Image 5">
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <img src="https://via.placeholder.com/300x200?text=Photo+6" class="img-fluid rounded" alt="Gallery Image 6">
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    `;
+                }
+                
+                if (document.getElementById('featureTestimonials').checked) {
+                    featuresHTML += `
+                        <section class="py-5">
+                            <div class="container">
+                                <h2 class="text-center mb-4">What Our Customers Say</h2>
+                                <div class="row">
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <p class="card-text">"Absolutely fantastic service! I couldn't be happier with the results."</p>
+                                                <p class="card-text"><small class="text-muted">- John Smith</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <p class="card-text">"Professional, prompt, and reasonably priced. Would definitely recommend!"</p>
+                                                <p class="card-text"><small class="text-muted">- Jane Doe</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <p class="card-text">"The best in town! I've been a loyal customer for years and have never been disappointed."</p>
+                                                <p class="card-text"><small class="text-muted">- Mike Johnson</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    `;
+                }
+                
+                // Generate HTML based on template
+                let templateClass = '';
+                switch (selectedTemplate) {
+                    case 'modern':
+                        templateClass = 'modern-template';
+                        break;
+                    case 'classic':
+                        templateClass = 'classic-template';
+                        break;
+                    case 'minimal':
+                        templateClass = 'minimal-template';
+                        break;
+                }
+                
+                // Generate color scheme CSS
+                let colorCSS = '';
+                switch (colorScheme) {
+                    case 'blue':
+                        colorCSS = `
+                            :root {
+                                --primary-color: #0d6efd;
+                                --secondary-color: #6c757d;
+                                --accent-color: #0dcaf0;
+                            }
+                        `;
+                        break;
+                    case 'green':
+                        colorCSS = `
+                            :root {
+                                --primary-color: #198754;
+                                --secondary-color: #6c757d;
+                                --accent-color: #20c997;
+                            }
+                        `;
+                        break;
+                    case 'red':
+                        colorCSS = `
+                            :root {
+                                --primary-color: #dc3545;
+                                --secondary-color: #6c757d;
+                                --accent-color: #fd7e14;
+                            }
+                        `;
+                        break;
+                    case 'purple':
+                        colorCSS = `
+                            :root {
+                                --primary-color: #6f42c1;
+                                --secondary-color: #6c757d;
+                                --accent-color: #d63384;
+                            }
+                        `;
+                        break;
+                }
+                
+                return `
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>${businessName}</title>
+                        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+                        <style>
+                            ${colorCSS}
+                            
+                            body {
+                                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                            }
+                            
+                            .btn-primary {
+                                background-color: var(--primary-color);
+                                border-color: var(--primary-color);
+                            }
+                            
+                            .btn-primary:hover {
+                                background-color: var(--accent-color);
+                                border-color: var(--accent-color);
+                            }
+                            
+                            .hero {
+                                background-color: var(--primary-color);
+                                color: white;
+                                padding: 100px 0;
+                                text-align: center;
+                            }
+                            
+                            .modern-template .hero {
+                                border-radius: 0 0 50% 50% / 20%;
+                            }
+                            
+                            .classic-template .hero {
+                                background-image: linear-gradient(to right, var(--primary-color), var(--accent-color));
+                            }
+                            
+                            .minimal-template .hero {
+                                background-color: white;
+                                color: var(--primary-color);
+                                border-bottom: 5px solid var(--primary-color);
+                            }
+                        </style>
+                    </head>
+                    <body class="${templateClass}">
+                        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                            <div class="container">
+                                <a class="navbar-brand" href="#">${businessName}</a>
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbarNav">
+                                    <ul class="navbar-nav ms-auto">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="#">Home</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#about">About</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#services">Services</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#contact">Contact</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                        
+                        <section class="hero">
+                            <div class="container">
+                                <h1>${businessName}</h1>
+                                <p class="lead">${businessCategory}</p>
+                                <button class="btn btn-light btn-lg mt-3">Learn More</button>
+                            </div>
+                        </section>
+                        
+                        <section class="py-5" id="about">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-8 mx-auto text-center">
+                                        <h2 class="mb-4">About Us</h2>
+                                        <p class="lead">${businessDescription}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <section class="py-5 bg-light" id="services">
+                            <div class="container">
+                                <h2 class="text-center mb-4">Our Services</h2>
+                                <div class="row">
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card h-100">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title">Service 1</h5>
+                                                <p class="card-text">Description of service 1 and its benefits.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card h-100">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title">Service 2</h5>
+                                                <p class="card-text">Description of service 2 and its benefits.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card h-100">
+                                            <div class="card-body text-center">
+                                                <h5 class="card-title">Service 3</h5>
+                                                <p class="card-text">Description of service 3 and its benefits.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        ${featuresHTML}
+                        
+                        <section class="py-5" id="contact">
+                            <div class="container">
+                                <h2 class="text-center mb-4">Contact Us</h2>
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <h5>Get in Touch</h5>
+                                        <p><i class="bi bi-geo-alt"></i> ${businessAddress}</p>
+                                        <p><i class="bi bi-telephone"></i> ${businessPhone}</p>
+                                        <p><i class="bi bi-envelope"></i> ${businessEmail}</p>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <h5>Send Us a Message</h5>
+                                        <form>
+                                            <div class="mb-3">
+                                                <input type="text" class="form-control" placeholder="Your Name" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <input type="email" class="form-control" placeholder="Your Email" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <textarea class="form-control" rows="3" placeholder="Your Message" required></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Send Message</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        
+                        <footer class="py-4 bg-dark text-white">
+                            <div class="container text-center">
+                                <p>&copy; 2025 ${businessName}. All rights reserved.</p>
+                            </div>
+                        </footer>
+                        
+                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+                    </body>
+                    </html>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
