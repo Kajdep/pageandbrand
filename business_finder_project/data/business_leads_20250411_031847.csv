@@ -1,0 +1,16 @@
+name,address,phone,has_website,website,category,rating,location,source
+Italian 1 - Camden,"10 High Street, Camden, London, UK",+44 20 7946 1000,False,,restaurants,3.0,"London, UK",Manual Search Simulation
+Indian 2 - Greenwich,"11 High Street, Greenwich, London, UK",+44 20 7946 1001,False,,restaurants,3.1,"London, UK",Manual Search Simulation
+Chinese 3 - Hackney,"12 High Street, Hackney, London, UK",+44 20 7946 1002,False,,restaurants,3.2,"London, UK",Manual Search Simulation
+Pub 4 - Hammersmith,"13 High Street, Hammersmith, London, UK",+44 20 7946 1003,False,,restaurants,3.3,"London, UK",Manual Search Simulation
+Cafe 5 - Islington,"14 High Street, Islington, London, UK",+44 20 7946 1004,False,,restaurants,3.4,"London, UK",Manual Search Simulation
+Bistro 6 - Kensington,"15 High Street, Kensington, London, UK",+44 20 7946 1005,False,,restaurants,3.5,"London, UK",Manual Search Simulation
+Italian 7 - Lambeth,"16 High Street, Lambeth, London, UK",+44 20 7946 1006,False,,restaurants,3.6,"London, UK",Manual Search Simulation
+Indian 8 - Lewisham,"17 High Street, Lewisham, London, UK",+44 20 7946 1007,False,,restaurants,3.7,"London, UK",Manual Search Simulation
+Chinese 9 - Southwark,"18 High Street, Southwark, London, UK",+44 20 7946 1008,False,,restaurants,3.8,"London, UK",Manual Search Simulation
+Pub 10 - Tower Hamlets,"19 High Street, Tower Hamlets, London, UK",+44 20 7946 1009,False,,restaurants,3.9,"London, UK",Manual Search Simulation
+Emergency Plumbing 1 - Camden,"10 High Street, Camden, Manchester, UK",+44 20 7946 1000,False,,plumbers,3.0,"Manchester, UK",Manual Search Simulation
+Plumbing & Heating 2 - Greenwich,"11 High Street, Greenwich, Manchester, UK",+44 20 7946 1001,False,,plumbers,3.1,"Manchester, UK",Manual Search Simulation
+Bathroom Specialist 3 - Hackney,"12 High Street, Hackney, Manchester, UK",+44 20 7946 1002,False,,plumbers,3.2,"Manchester, UK",Manual Search Simulation
+Emergency Plumbing 4 - Hammersmith,"13 High Street, Hammersmith, Manchester, UK",+44 20 7946 1003,False,,plumbers,3.3,"Manchester, UK",Manual Search Simulation
+Plumbing & Heating 5 - Islington,"14 High Street, Islington, Manchester, UK",+44 20 7946 1004,False,,plumbers,3.4,"Manchester, UK",Manual Search Simulation

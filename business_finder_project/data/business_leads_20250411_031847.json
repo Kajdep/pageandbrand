@@ -1,0 +1,167 @@
+[
+  {
+    "name": "Italian 1 - Camden",
+    "address": "10 High Street, Camden, London, UK",
+    "phone": "+44 20 7946 1000",
+    "has_website": false,
+    "website": "",
+    "category": "restaurants",
+    "rating": 3.0,
+    "location": "London, UK",
+    "source": "Manual Search Simulation"
+  },
+  {
+    "name": "Indian 2 - Greenwich",
+    "address": "11 High Street, Greenwich, London, UK",
+    "phone": "+44 20 7946 1001",
+    "has_website": false,
+    "website": "",
+    "category": "restaurants",
+    "rating": 3.1,
+    "location": "London, UK",
+    "source": "Manual Search Simulation"
+  },
+  {
+    "name": "Chinese 3 - Hackney",
+    "address": "12 High Street, Hackney, London, UK",
+    "phone": "+44 20 7946 1002",
+    "has_website": false,
+    "website": "",
+    "category": "restaurants",
+    "rating": 3.2,
+    "location": "London, UK",
+    "source": "Manual Search Simulation"
+  },
+  {
+    "name": "Pub 4 - Hammersmith",
+    "address": "13 High Street, Hammersmith, London, UK",
+    "phone": "+44 20 7946 1003",
+    "has_website": false,
+    "website": "",
+    "category": "restaurants",
+    "rating": 3.3,
+    "location": "London, UK",
+    "source": "Manual Search Simulation"
+  },
+  {
+    "name": "Cafe 5 - Islington",
+    "address": "14 High Street, Islington, London, UK",
+    "phone": "+44 20 7946 1004",
+    "has_website": false,
+    "website": "",
+    "category": "restaurants",
+    "rating": 3.4,
+    "location": "London, UK",
+    "source": "Manual Search Simulation"
+  },
+  {
+    "name": "Bistro 6 - Kensington",
+    "address": "15 High Street, Kensington, London, UK",
+    "phone": "+44 20 7946 1005",
+    "has_website": false,
+    "website": "",
+    "category": "restaurants",
+    "rating": 3.5,
+    "location": "London, UK",
+    "source": "Manual Search Simulation"
+  },
+  {
+    "name": "Italian 7 - Lambeth",
+    "address": "16 High Street, Lambeth, London, UK",
+    "phone": "+44 20 7946 1006",
+    "has_website": false,
+    "website": "",
+    "category": "restaurants",
+    "rating": 3.6,
+    "location": "London, UK",
+    "source": "Manual Search Simulation"
+  },
+  {
+    "name": "Indian 8 - Lewisham",
+    "address": "17 High Street, Lewisham, London, UK",
+    "phone": "+44 20 7946 1007",
+    "has_website": false,
+    "website": "",
+    "category": "restaurants",
+    "rating": 3.7,
+    "location": "London, UK",
+    "source": "Manual Search Simulation"
+  },
+  {
+    "name": "Chinese 9 - Southwark",
+    "address": "18 High Street, Southwark, London, UK",
+    "phone": "+44 20 7946 1008",
+    "has_website": false,
+    "website": "",
+    "category": "restaurants",
+    "rating": 3.8,
+    "location": "London, UK",
+    "source": "Manual Search Simulation"
+  },
+  {
+    "name": "Pub 10 - Tower Hamlets",
+    "address": "19 High Street, Tower Hamlets, London, UK",
+    "phone": "+44 20 7946 1009",
+    "has_website": false,
+    "website": "",
+    "category": "restaurants",
+    "rating": 3.9,
+    "location": "London, UK",
+    "source": "Manual Search Simulation"
+  },
+  {
+    "name": "Emergency Plumbing 1 - Camden",
+    "address": "10 High Street, Camden, Manchester, UK",
+    "phone": "+44 20 7946 1000",
+    "has_website": false,
+    "website": "",
+    "category": "plumbers",
+    "rating": 3.0,
+    "location": "Manchester, UK",
+    "source": "Manual Search Simulation"
+  },
+  {
+    "name": "Plumbing & Heating 2 - Greenwich",
+    "address": "11 High Street, Greenwich, Manchester, UK",
+    "phone": "+44 20 7946 1001",
+    "has_website": false,
+    "website": "",
+    "category": "plumbers",
+    "rating": 3.1,
+    "location": "Manchester, UK",
+    "source": "Manual Search Simulation"
+  },
+  {
+    "name": "Bathroom Specialist 3 - Hackney",
+    "address": "12 High Street, Hackney, Manchester, UK",
+    "phone": "+44 20 7946 1002",
+    "has_website": false,
+    "website": "",
+    "category": "plumbers",
+    "rating": 3.2,
+    "location": "Manchester, UK",
+    "source": "Manual Search Simulation"
+  },
+  {
+    "name": "Emergency Plumbing 4 - Hammersmith",
+    "address": "13 High Street, Hammersmith, Manchester, UK",
+    "phone": "+44 20 7946 1003",
+    "has_website": false,
+    "website": "",
+    "category": "plumbers",
+    "rating": 3.3,
+    "location": "Manchester, UK",
+    "source": "Manual Search Simulation"
+  },
+  {
+    "name": "Plumbing & Heating 5 - Islington",
+    "address": "14 High Street, Islington, Manchester, UK",
+    "phone": "+44 20 7946 1004",
+    "has_website": false,
+    "website": "",
+    "category": "plumbers",
+    "rating": 3.4,
+    "location": "Manchester, UK",
+    "source": "Manual Search Simulation"
+  }
+]
