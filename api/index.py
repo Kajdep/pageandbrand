@@ -1,13 +1,12 @@
-from flask import Flask, request
-import sys
-import os
+from flask import Flask
 
-# Add the root directory to the path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Create a simple Flask app for testing
+app = Flask(__name__)
 
-# Import your app
-from app import app
+@app.route('/')
+def home():
+    return "Hello from Page & Brand Business Finder!"
 
-# This is required for Vercel serverless functions
-if __name__ == "__main__":
-    app.run()
+@app.route('/api/test')
+def test():
+    return {"status": "ok", "message": "API is working"}
