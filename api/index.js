@@ -9,6 +9,17 @@ export default function handler(req, res) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Finder | Page & Brand</title>
+    <meta name="description" content="Business Finder helps identify local businesses without websites and generate outreach-ready website opportunities for Page & Brand.">
+    <link rel="canonical" href="https://business-finder-three.vercel.app/">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Business Finder | Page & Brand">
+    <meta property="og:description" content="Identify local businesses without websites and generate outreach-ready website opportunities.">
+    <meta property="og:url" content="https://business-finder-three.vercel.app/">
+    <meta property="og:site_name" content="Business Finder">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Business Finder | Page & Brand">
+    <meta name="twitter:description" content="Identify local businesses without websites and generate outreach-ready website opportunities.">
     <style>
       * {
         margin: 0;
